@@ -1,23 +1,17 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { Button } from "semantic-ui-react";
 import normalBaby from "./assets/unadulterated-hoglette.png";
 import SunBaby from "./assets/sun-eyes.png";
 import BlueBaby from "./assets/blue-eyes.png";
 import GlowingBaby from "./assets/glowing-eyes.png";
 
-export default class BabyHog extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      weight: 100,
-      image: normalBaby,
-      height: 200
-    };
-  }
+const BabyHog = props => {
+  const [weight, setWeight] = useState(100);
+  const [height, setHeight] = useState(200);
 
-  changeWeight = e => {
-    let newWeight = this.state.weight;
-    let newHeight = this.state.height;
+  const changeWeight = e => {
+    let newWeight = weight;
+    let newHeight = height;
     if (e.target.name === "+") {
       newWeight += 10;
       newHeight += 10;
@@ -25,46 +19,45 @@ export default class BabyHog extends Component {
       newWeight -= 10;
       newHeight -= 10;
     }
-    this.setState({
-      weight: newWeight,
-      height: newHeight
-    });
+
+    setWeight(newWeight);
+    setHeight(newHeight);
   };
 
-  colorMap = {
+  const colorMap = {
     normal: normalBaby,
     sun: SunBaby,
     glowing: GlowingBaby,
     blue: BlueBaby
   };
 
-  chooseImage = () => {
-    return this.colorMap[this.props.eyeColor];
+  const chooseImage = colorMap => {
+    return colorMap[props.eyeColor];
   };
 
-  render() {
-    return (
-      <li className="hogbabies">
-        <h1>Name {this.props.name}</h1>
-        <h3>Weight: {this.state.weight}</h3>
-        <h3>Hobby:{this.props.hobby}</h3>
-        <h4>Eye Color:{this.props.eyeColor}</h4>
+  return (
+    <li className="hogbabies">
+      <h1>Name {props.name}</h1>
+      <h3>Weight: {weight}</h3>
+      <h3>Hobby:{props.hobby}</h3>
+      <h4>Eye Color:{props.eyeColor}</h4>
 
-        <Button onClick={this.changeWeight} name="+">
-          Increase Weight
-        </Button>
-        <Button onClick={this.changeWeight} name="-">
-          Decrease Weight
-        </Button>
+      <Button onClick={changeWeight} name="+">
+        Increase Weight
+      </Button>
+      <Button onClick={changeWeight} name="-">
+        Decrease Weight
+      </Button>
 
-        <div className="hb-wrap">
-          <img
-            src={this.chooseImage()}
-            style={{ height: `${this.state.height}px` }}
-            alt="MasterBlasterJrJr"
-          />
-        </div>
-      </li>
-    );
-  }
-}
+      <div className="hb-wrap">
+        <img
+          src={chooseImage(colorMap)}
+          style={{ height: `${height}px` }}
+          alt="MasterBlasterJrJr"
+        />
+      </div>
+    </li>
+  );
+};
+
+export default BabyHog;

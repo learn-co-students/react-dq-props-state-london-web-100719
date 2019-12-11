@@ -1,23 +1,16 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import Master from "./assets/master-hog.png";
 import BabyHog from "./BabyHog";
 import offspring from "./db.js";
 
-export default class MasterHog extends Component {
-  constructor() {
-    super();
-    this.state = {
-      eyeColor: "blue"
-    };
-  }
+const MasterHog = () => {
+  const [eyeColor, setEyeColor] = useState("blue");
 
-  changeEyeColor = e => {
-    this.setState({
-      eyeColor: e.target.value
-    });
+  const changeEyeColor = e => {
+    setEyeColor(e.target.value);
   };
 
-  generateBabies = () => {
+  const generateBabies = () => {
     return offspring.map(baby => {
       return (
         <BabyHog
@@ -25,44 +18,44 @@ export default class MasterHog extends Component {
           id={baby.id}
           name={baby.name}
           hobby={baby.hobby}
-          eyeColor={this.state.eyeColor}
+          eyeColor={eyeColor}
         />
       );
     });
   };
 
-  render() {
-    return (
-      <div>
-        <input
-          type="radio"
-          name="eyeColor"
-          value="blue"
-          onChange={this.changeEyeColor}
-        />
-        Blue<br></br>
-        <input
-          type="radio"
-          name="eyeColor"
-          value="sun"
-          onChange={this.changeEyeColor}
-        />
-        Sun<br></br>
-        <input
-          type="radio"
-          name="eyeColor"
-          value="glowing"
-          onChange={this.changeEyeColor}
-        />
-        Glowing<br></br>
-        <h2>Name: Master Blaster</h2>
-        <h3>Weight: 2.54 Tons</h3>
-        <h3>Eye Color: {this.state.eyeColor}</h3>
-        <div id="masters-domicile">
-          <img id="master-blaster" src={Master} alt="" />
-        </div>
-        <ul className="hoglist">{this.generateBabies()}</ul>
+  return (
+    <div>
+      <input
+        type="radio"
+        name="eyeColor"
+        value="blue"
+        onChange={changeEyeColor}
+      />
+      Blue<br></br>
+      <input
+        type="radio"
+        name="eyeColor"
+        value="sun"
+        onChange={changeEyeColor}
+      />
+      Sun<br></br>
+      <input
+        type="radio"
+        name="eyeColor"
+        value="glowing"
+        onChange={changeEyeColor}
+      />
+      Glowing<br></br>
+      <h2>Name: Master Blaster</h2>
+      <h3>Weight: 2.54 Tons</h3>
+      <h3>Eye Color: {eyeColor}</h3>
+      <div id="masters-domicile">
+        <img id="master-blaster" src={Master} alt="" />
       </div>
-    );
-  }
-}
+      <ul className="hoglist">{generateBabies()}</ul>
+    </div>
+  );
+};
+
+export default MasterHog;

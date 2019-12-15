@@ -8,7 +8,9 @@ export default class MasterHog extends Component {
   constructor() {
     super()
     this.state = {
-      eyeColor: "blue",
+      babyNames: ["Barry", "Larry", "Lana"],
+      babyHobbies: ["Watch TV", "Play Lego", "Mess about"],
+      eyeColor: ""
     }
   }
 
@@ -40,9 +42,9 @@ export default class MasterHog extends Component {
         </div>
         
         <ul className="hoglist">
-          <BabyHog />
-          <BabyHog />
-          <BabyHog />
+          <BabyHog eyes={this.state.eyeColor} name={this.state.babyNames[0]} hobby={this.state.babyHobbies[0]} />
+          <BabyHog eyes={this.state.eyeColor} name={this.state.babyNames[1]} hobby={this.state.babyHobbies[1]} />
+          <BabyHog eyes={this.state.eyeColor} name={this.state.babyNames[2]} hobby={this.state.babyHobbies[2]}/>
         </ul>
 
       </div>
